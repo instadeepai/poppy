@@ -1,0 +1,66 @@
+default_stages: [ "commit", "commit-msg", "push" ]
+default_language_version:
+  python: python3.8
+
+# Global file match: we only precommit .py, .yaml and .ipynb of
+# experiments/
+# poppy/
+files: '^(experiments|poppy)/(.*\.py|.*\.ipynb|.*\.yaml)$'
+# Let's exclude the notebooks package
+exclude:  '^notebooks/'
+
+repos:
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        name: "Format code (black)"
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: debug-statements
+      - id: requirements-txt-fixer
+      - id: mixed-line-ending
+      - id: check-yaml
+        args: [ '--unsafe' ]
+      - id: trailing-whitespace
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        args:
+          - --max-line-length=100
+          - --max-cognitive-complexity=10
+          - --ignore=E266,E501,E731,W503
+        additional_dependencies:
+          - pep8-naming
+          - flake8-builtins
+          - flake8-comprehensions
+          - flake8-bugbear
+          - flake8-pytest-style
+          - flake8-cognitive-complexity
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.942
+    hooks:
+      - id: mypy
+
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v4.1.0
+    hooks:
+      - id: commitlint
+        stages: [ commit-msg ]
+        additional_dependencies: [ '@commitlint/config-conventional' ]
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.5.0
+    hooks:
+      - id: nbstripout

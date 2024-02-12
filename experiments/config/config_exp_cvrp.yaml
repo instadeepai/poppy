@@ -1,0 +1,59 @@
+defaults:
+  - environment: cvrp
+  - networks: cvrp
+  - validation: config_validate_cvrp
+  - slowrl: config_slowrl_cvrp
+
+
+algo_name: "poppy_indep" # purely descriptive
+env_name: "cvrp" # purely descriptive
+
+seed: 0
+num_devices: -1
+
+num_steps: 5000000 # 20000000
+batch_size: 8 # TODO: add check it's divisible by num_devices if needed.
+pop_size: 32
+num_starting_positions: 100
+num_jit_steps: 10
+use_half_precision: False
+
+checkpoint_freq: 1000
+checkpointing:
+  directory: "checkpoints/"
+  checkpoint_fname_load: "checkpoint"
+  checkpoint_fname_save: "checkpoint"
+  save_checkpoint: True
+  keep_best_checkpoint: False
+  overwrite_checkpoints: True
+  restore_path: "data/cvrp/pomo"  # Path to a checkpoint to be loaded (False -> do not load anything)
+  restore_encoder: True  # Whether to load the encoder from the checkpoint
+  restore_decoder: True  # Whether to load the decoder(s) from the checkpoint
+  allow_cloned_across_population: True  # Whether to clone the decoders
+  restore_optimizer: False  # Whether to load the optimizer from the checkpoint
+
+rollout:
+  policy:
+    temperature: 1
+  encoder_pmap_axis: "batch" # 'batch' or 'pop'
+  decoder_pmap_axis: "batch" # 'batch' or 'pop'
+
+loss_objective: 'poppy' # options: 'poppy', 'poppy_with_pomo_baseline', 'pomo'
+optimizer:
+  encoder:
+    lr: 1e-4
+    l2_regularization: 1e-6
+  decoder:
+    lr: 1e-4
+    l2_regularization: 0
+  num_gradient_accumulation_steps: 8
+
+validation_freq: 500
+
+logger:
+  terminal:
+    label: ''
+    time_delta: 1
+  neptune:
+    name: 'Poppy: CVRP 100 pop 32'
+    project: 'InstaDeep/Poppy'

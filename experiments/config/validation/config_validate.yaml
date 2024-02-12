@@ -1,0 +1,27 @@
+defaults:
+  - /environment: tsp
+  - /networks: tsp
+
+num_devices: -1 # Inherit from main.
+use_half_precision: False
+problem_seed: 0
+
+batch_size: 64 #8 #64 # Todo: ensure num_problems, batch_size and num_devices are compatible
+use_augmentations: False # False
+num_starting_points: -1
+compute_expensive_metrics: False
+
+rollout:
+  policy:
+    temperature: 0
+  encoder_pmap_axis: "batch" # 'pop' or 'batch'
+  decoder_pmap_axis: "batch" # 'pop' or 'batch'
+
+checkpointing:
+  restore_path: "checkpoints/"
+  checkpoint_fname_load: "checkpoint"
+
+problems:
+  load_problem: False # True
+  load_path: "data/evaluation_data/tsp100_test_seed1234.pkl"
+  num_problems: 1024

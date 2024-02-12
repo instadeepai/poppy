@@ -1,0 +1,3 @@
+_target_: poppy.environments.PoppyKnapsack
+num_items: 100
+total_budget: 25

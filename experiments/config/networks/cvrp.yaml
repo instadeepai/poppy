@@ -1,0 +1,13 @@
+encoder:
+  _target_: poppy.networks.CVRPEncoder
+  num_layers: 6
+  num_heads: 8
+  key_size: 16
+  expand_factor: 4
+  model_size: 128
+
+decoder:
+  _target_: poppy.networks.CVRPDecoder
+  num_heads: 8
+  key_size: 16
+  model_size: ${..encoder.model_size}

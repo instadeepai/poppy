@@ -1,0 +1,33 @@
+name: popcorn
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8.10
+  - numpy==1.22.4
+  - pip=21.0.1
+  - jupyter
+  - pip:
+      - --find-links https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+      - jax==0.3.24
+      - jaxlib==0.3.24
+      - black
+      - chex==0.1.5
+      - dm-acme~=0.4.0
+      - dm-haiku==0.0.8
+      - hydra-core==1.2.0
+      - isort
+      - jmp==0.0.2
+      - jumanji==0.2.2
+      - matplotlib==3.5.3
+      - neptune-client==0.16.7
+      - omegaconf==2.2.3
+      - pre-commit
+      - rlax>=0.1.4
+      - tensorflow==2.8.0
+      - tensorflow_datasets==4.5.2
+      - tensorflow_probability==0.15.0
+      - setuptools==65.3.0
+      - rich
+      - optax==0.1.4
+      - protobuf==3.20.3

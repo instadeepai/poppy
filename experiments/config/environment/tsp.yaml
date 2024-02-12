@@ -1,0 +1,2 @@
+_target_: poppy.environments.PoppyTSP
+num_cities: 100

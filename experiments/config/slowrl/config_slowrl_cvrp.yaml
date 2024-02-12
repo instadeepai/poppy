@@ -1,0 +1,34 @@
+defaults:
+  - /environment: cvrp
+  - /networks: cvrp
+
+num_devices: -1 # Inherit from main.
+use_half_precision: False
+problem_seed: 0
+
+batch_size: 32 #8 #64 # Todo: ensure num_problems, batch_size and num_devices are compatible
+use_augmentations: False #False # going to multiply by 8 the nb of evaluations
+num_starting_points: -1
+compute_expensive_metrics: False
+
+budget: 1600 #3200
+
+shift_scale: 0
+
+new_acting_keys: True
+use_poppy_strategy: False
+
+rollout:
+  policy:
+    temperature: 1
+  encoder_pmap_axis: "batch" # 'pop' or 'batch'
+  decoder_pmap_axis: "batch" # 'pop' or 'batch'
+
+checkpointing:
+  restore_path: "data/cvrp/poppy_32"
+  checkpoint_fname_load: "checkpoint"
+
+problems:
+  load_problem: False # True #False # True
+  load_path: "data/evaluation_data/vrp100_test_seed1234.pkl"
+  num_problems: 1024 #1024 # 1024
