@@ -1,0 +1,33 @@
+environment:
+  name: tsp  # Other values: cvrp, knapsack
+  params:
+    #  CVRP Params (other pairs are <150, 55>, <150, 60>)
+    num_nodes: 100
+    norm_factor: 50
+
+    # Knapsack Params (other num_items could be 200)
+    num_items: 100
+    total_budget: 25
+
+    # TSP Params (other values are 125, 150)
+    num_cities: 100
+
+num_steps: 1000                 # Number of training steps
+validation_freq: 500            # Every how many steps validation runs
+
+pop_size: 1                     # Population size (e.g. 1, 4, 8, 16, 32)
+num_starting_points: 20         # Number of starting points (must lower or equal than the problem size)
+train_best: False               # Whether to use the Poppy objective to train the agents
+train_encoder: True             # Whether to train the encoder or keep its parameters frozen
+
+num_problems_training: 64       # Batch size (number of problems for each training step)
+minibatch_size_training: 64     # Training is run in minibatches (should be a divisor of num_problems_training)
+num_problems_validation: 128    # Number of problems to run validation on (the set is randomly generated and fixed)
+minibatch_size_validation: 128  # Validation is run in minibatches (should be a divisor of num_problems_validation)
+
+save_checkpoint: True           # Whether to save checkpoints
+save_best: False                # Whether to save a new checkpoint upon achieving best performance (o.w. save the last one)
+
+load_checkpoint: ""             # Path to a checkpoint to be loaded (empty string -> do not load anything)
+load_decoder: False             # Whether to load the decoder(s) from the checkpoint
+load_optimizer: False           # Whether to load the optimizers from the checkpoint
